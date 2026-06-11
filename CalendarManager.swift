@@ -57,21 +57,26 @@ class CalendarManager: ObservableObject {
     @Published var backgroundImageOpacity: Double {
         didSet { UserDefaults.standard.set(backgroundImageOpacity, forKey: "backgroundImageOpacity") }
     }
-    
+    @Published var selectedAlarmSound: String {
+        didSet { UserDefaults.standard.set(selectedAlarmSound, forKey: "selectedAlarmSound") }
+    }
+
     init() {
         let storedOffset = UserDefaults.standard.double(forKey: "alertOffset")
         self.alertOffset = storedOffset == 0 ? 10 : storedOffset
         self.selectedTheme = UserDefaults.standard.string(forKey: "selectedTheme") ?? "Cyberpunk"
         self.isPaused = UserDefaults.standard.bool(forKey: "isPaused")
         self.isMuted = UserDefaults.standard.bool(forKey: "isMuted")
-        
+
         let storedOpacity = UserDefaults.standard.double(forKey: "alertOpacity")
         self.alertOpacity = storedOpacity == 0 ? 0.6 : storedOpacity
-        
+
         self.backgroundImagePath = UserDefaults.standard.string(forKey: "backgroundImagePath")
-        
+
         let storedImgOpacity = UserDefaults.standard.double(forKey: "backgroundImageOpacity")
         self.backgroundImageOpacity = storedImgOpacity == 0 ? 0.3 : storedImgOpacity
+
+        self.selectedAlarmSound = UserDefaults.standard.string(forKey: "selectedAlarmSound") ?? "Sosumi"
         
         authorizationStatus = EKEventStore.authorizationStatus(for: .event)
         if authorizationStatus == .authorized || authorizationStatus.rawValue == 3 {

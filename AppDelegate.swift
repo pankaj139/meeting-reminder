@@ -239,7 +239,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         
         if !calendarManager.isMuted {
-            AlarmManager.shared.playAlarm(soundName: "Sosumi")
+            AlarmManager.shared.playAlarm(soundName: calendarManager.selectedAlarmSound)
         }
         
         // Delete mock meeting immediately upon trigger so it disappears from lists

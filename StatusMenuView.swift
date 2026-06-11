@@ -88,6 +88,21 @@ struct StatusMenuView: View {
 
                             Divider().opacity(0.4)
 
+                            SettingsRow(icon: "music.note", iconColor: .pink, title: "Alarm sound") {
+                                Picker("", selection: $calendarManager.selectedAlarmSound) {
+                                    ForEach(AlarmManager.shared.availableSounds, id: \.self) { sound in
+                                        Text(sound).tag(sound)
+                                    }
+                                }
+                                .pickerStyle(MenuPickerStyle())
+                                .labelsHidden()
+                                .controlSize(.small)
+                                .frame(width: 125)
+                                .disabled(calendarManager.isMuted)
+                            }
+
+                            Divider().opacity(0.4)
+
                             SettingsRow(icon: "clock.fill", iconColor: .blue, title: "Alert timing") {
                                 Picker("", selection: $calendarManager.alertOffset) {
                                     Text("At start").tag(TimeInterval(0))
