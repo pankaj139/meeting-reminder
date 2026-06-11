@@ -72,43 +72,6 @@ To compile and package `In Your Face` manually:
 
 ---
 
-## Setting Up Your GitHub Repository
-
-To host this project on GitHub, follow these steps:
-
-### 1. Initialize Git and Commit Your Code
-If you haven't already committed your local changes:
-```bash
-# Add files to tracking (.gitignore ignores build artifacts and local DS_Store)
-git add .
-
-# Create the initial commit
-git commit -m "Initial commit of In Your Face app"
-
-# Ensure your default branch is named 'main'
-git branch -M main
-```
-
-### 2. Create a Repository on GitHub
-1. Go to [github.com](https://github.com) and sign in.
-2. Click the **`+`** icon in the top right corner and select **New repository**.
-3. Set the **Repository name** (e.g., `InYourFace` or `intelligent-hawking`).
-4. Keep the repository description clear, and leave **Initialize this repository with** unchecked (since you already have a local git history).
-5. Click **Create repository**.
-
-### 3. Link Local Repository and Push
-Copy the remote repository URL (either HTTPS or SSH) from the repository page, then run:
-```bash
-# Link the local repository to your remote GitHub repository
-git remote add origin <your-github-repo-url>
-
-# Push the code to the main branch
-git push -u origin main
-```
-Replace `<your-github-repo-url>` with your actual URL (e.g., `https://github.com/your-username/InYourFace.git`).
-
----
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
