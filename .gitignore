@@ -3,6 +3,7 @@
 
 # Build artifacts
 InYourFace.app/
+*.zip
 
 # User-specific / IDE settings
 .claude/
