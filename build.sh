@@ -5,9 +5,17 @@ APP_NAME="InYourFace"
 APP_DIR="${APP_NAME}.app"
 CONTENTS_DIR="${APP_DIR}/Contents"
 MACOS_DIR="${CONTENTS_DIR}/MacOS"
+RESOURCES_DIR="${CONTENTS_DIR}/Resources"
 
 echo "Creating App Bundle Directory..."
 mkdir -p "$MACOS_DIR"
+mkdir -p "$RESOURCES_DIR"
+
+# Copy AppIcon.icns if it exists
+if [ -f "AppIcon.icns" ]; then
+    echo "Copying AppIcon.icns to Resources..."
+    cp "AppIcon.icns" "$RESOURCES_DIR/AppIcon.icns"
+fi
 
 echo "Writing Info.plist..."
 cat <<EOF > "${CONTENTS_DIR}/Info.plist"
@@ -29,6 +37,8 @@ cat <<EOF > "${CONTENTS_DIR}/Info.plist"
     <string>APPL</string>
     <key>LSUIElement</key>
     <true/>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>NSCalendarsFullAccessUsageDescription</key>
     <string>In Your Face needs access to your calendars to show upcoming meetings and trigger alerts.</string>
 </dict>
