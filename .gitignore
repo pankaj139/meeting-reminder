@@ -1,0 +1,10 @@
+# OS X
+.DS_Store
+
+# Build artifacts
+InYourFace.app/
+
+# User-specific / IDE settings
+.claude/
+.vscode/
+.idea/
