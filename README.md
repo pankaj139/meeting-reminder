@@ -2,6 +2,8 @@
 
 `In Your Face` is a minimalist, distraction-free macOS menu bar application designed to ensure you never miss an upcoming calendar event or meeting. Inspired by classic screen-takeover utilities, it interrupts you with an unmissable full-screen overlay when a meeting is about to start, prompting you to join, snooze, or dismiss the event.
 
+![Takeover Alert Screenshot](screenshot.png)
+
 ---
 
 ## Features
