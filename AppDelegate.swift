@@ -7,6 +7,60 @@ enum EventState {
     case dismissed
 }
 
+// Custom-drawn menu bar icon: an eye with alert rays. Template image so it
+// adapts to light/dark menu bars and the "selected" highlight automatically.
+enum MenuBarIcon {
+    static let normal = make(paused: false)
+    static let paused = make(paused: true)
+
+    private static func make(paused: Bool) -> NSImage {
+        let image = NSImage(size: NSSize(width: 18, height: 18), flipped: false) { _ in
+            NSColor.black.setStroke()
+            NSColor.black.setFill()
+
+            // Almond eye outline
+            let eye = NSBezierPath()
+            eye.move(to: NSPoint(x: 1.5, y: 6.5))
+            eye.curve(to: NSPoint(x: 16.5, y: 6.5), controlPoint1: NSPoint(x: 5, y: 12), controlPoint2: NSPoint(x: 13, y: 12))
+            eye.curve(to: NSPoint(x: 1.5, y: 6.5), controlPoint1: NSPoint(x: 13, y: 1), controlPoint2: NSPoint(x: 5, y: 1))
+            eye.lineWidth = 1.5
+            eye.lineJoinStyle = .round
+            eye.stroke()
+
+            // Pupil
+            NSBezierPath(ovalIn: NSRect(x: 6.7, y: 4.2, width: 4.6, height: 4.6)).fill()
+
+            if paused {
+                // Diagonal slash across the eye
+                let slash = NSBezierPath()
+                slash.move(to: NSPoint(x: 2.5, y: 1.5))
+                slash.line(to: NSPoint(x: 15.5, y: 14.5))
+                slash.lineWidth = 1.8
+                slash.lineCapStyle = .round
+                slash.stroke()
+            } else {
+                // Alert rays above the eye
+                let rays: [(CGFloat, CGFloat, CGFloat, CGFloat)] = [
+                    (9, 12.5, 9, 15.5),
+                    (4.5, 11.5, 3, 14),
+                    (13.5, 11.5, 15, 14)
+                ]
+                for (x1, y1, x2, y2) in rays {
+                    let ray = NSBezierPath()
+                    ray.move(to: NSPoint(x: x1, y: y1))
+                    ray.line(to: NSPoint(x: x2, y: y2))
+                    ray.lineWidth = 1.5
+                    ray.lineCapStyle = .round
+                    ray.stroke()
+                }
+            }
+            return true
+        }
+        image.isTemplate = true
+        return image
+    }
+}
+
 class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem!
     var popover: NSPopover!
@@ -25,7 +79,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create Status Item
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "eye.fill", accessibilityDescription: "In Your Face")
+            button.image = MenuBarIcon.normal
             button.action = #selector(togglePopover(_:))
             button.target = self
         }
@@ -133,11 +187,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         guard let button = statusItem.button else { return }
         
         if calendarManager.isPaused {
-            button.image = NSImage(systemSymbolName: "eye.slash.fill", accessibilityDescription: "In Your Face (Paused)")
+            button.image = MenuBarIcon.paused
             button.title = " PAUSED"
             return
         } else {
-            button.image = NSImage(systemSymbolName: "eye.fill", accessibilityDescription: "In Your Face")
+            button.image = MenuBarIcon.normal
         }
         
         let now = Date()

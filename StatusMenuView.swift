@@ -629,8 +629,13 @@ struct MeetingRow: View {
         }
         .padding(.horizontal, 6)
         .padding(.vertical, 6)
-        .background(isHovered ? Color.white.opacity(0.08) : Color.clear)
-        .cornerRadius(6)
+        .frame(maxWidth: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 6)
+                .fill(isHovered ? Color.primary.opacity(0.09) : Color.clear)
+        )
+        .contentShape(Rectangle())
+        .animation(.easeOut(duration: 0.12), value: isHovered)
         .onHover { hovering in
             isHovered = hovering
         }
